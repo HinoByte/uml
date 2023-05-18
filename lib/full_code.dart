@@ -1,16 +1,12 @@
-
-
+import 'package:flutter/material.dart';
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 class AppConfig {
   static const String apiUrl = 'http://192.168.1.239:8787';
 }
 
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:uml/models/diagram.dart';
-import 'package:uml/pages/login_page.dart';
-import 'package:uml/pages/student_page.dart';
-import 'package:uml/pages/use_case_page.dart';
-import 'package:uml/pages/variant_page.dart';
 
 void main() {
   // GoogleFonts.config.allowRuntimeFetching = false;
@@ -82,7 +78,6 @@ class DiagramType {
   }
 }
 
-import 'package:uml/models/group.dart';
 
 class User {
   final int? id;
@@ -126,9 +121,6 @@ class User {
 }
 
 
-import 'package:uml/models/diagram_type.dart';
-import 'package:uml/models/user.dart';
-import 'package:uml/utils/base_entity.dart';
 
 class Diagram extends BaseEntity{
   final int? id;
@@ -183,7 +175,6 @@ class Diagram extends BaseEntity{
 }
 
 
-import 'package:uml/utils/base_entity.dart';
 
 class Group extends BaseEntity {
   final int? id;
@@ -221,12 +212,6 @@ class Group extends BaseEntity {
 }
 
 
-import 'package:flutter/material.dart';
-import 'package:uml/models/relationship_type.dart';
-import 'package:uml/utils/connections.dart';
-import 'package:uml/utils/visual_object.dart';
-import 'package:uml/widgets/painters/relationships_painters/association_painter.dart';
-import 'package:uml/widgets/painters/relationships_painters/dependency_painter.dart';
 
 class Relationship extends Connection implements IVisualObject {
   final int? id;
@@ -337,12 +322,6 @@ class ObjectType {
   }
 }
 
-import 'package:flutter/material.dart';
-import 'package:uml/models/uml_object_type.dart';
-import 'package:uml/utils/entity.dart';
-import 'package:uml/utils/visual_object.dart';
-import 'package:uml/widgets/painters/objects/actor_painter.dart';
-import 'package:uml/widgets/painters/objects/precedent_painter.dart';
 
 class UmlObject extends Entity implements IVisualObject {
   final int? id;
@@ -465,7 +444,6 @@ abstract class BaseEntity {
   String get getName;
 }
 
-import 'package:flutter/material.dart';
 
 abstract class IVisualObject {
 
@@ -485,8 +463,6 @@ class ErrorType {
   ErrorType({required this.code, required this.message});
 }
 
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class PasswordField extends StatefulWidget {
   const PasswordField({Key? key, required this.controller, this.isReg = false})
@@ -564,9 +540,6 @@ class PasswordFieldState extends State<PasswordField> {
 }
 
 
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:uml/utils/base_entity.dart';
 
 class ValueDropdown<T extends BaseEntity> extends StatelessWidget {
   final List<T> items;
@@ -629,7 +602,6 @@ class ValueDropdown<T extends BaseEntity> extends StatelessWidget {
 }
 
 
-import 'package:flutter/material.dart';
 
 class MessageDialog extends StatelessWidget {
   final String title;
@@ -684,8 +656,6 @@ class MessageDialog extends StatelessWidget {
 }
 
 
-import 'package:flutter/material.dart';
-import 'package:uml/repository/user_repository.dart';
 
 class UserInfo extends StatelessWidget {
   const UserInfo({super.key});
@@ -766,8 +736,6 @@ class UserInfo extends StatelessWidget {
 }
 
 
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ActionsButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -822,7 +790,6 @@ class ActionsButton extends StatelessWidget {
 
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
 
 class DependencyPainter extends CustomPainter {
   final String text;
@@ -879,7 +846,6 @@ class DependencyPainter extends CustomPainter {
   }
 }
 
-import 'package:flutter/material.dart';
 
 class AssociationPainter extends CustomPainter {
   final Offset? start;
@@ -979,7 +945,6 @@ class AssociationPainter extends CustomPainter {
 // }
 
 
-import 'package:flutter/material.dart';
 
 class ActorPainter extends CustomPainter {
   @override
@@ -1032,7 +997,6 @@ class ActorPainter extends CustomPainter {
   }
 }
 
-import 'package:flutter/material.dart';
 
 class PrecedentPainter extends CustomPainter {
   @override
@@ -1057,11 +1021,6 @@ class PrecedentPainter extends CustomPainter {
   }
 }
 
-import 'package:dio/dio.dart';
-import 'package:uml/api/user_api.dart';
-import 'package:uml/utils/error_type.dart';
-import 'package:uml/models/user.dart';
-import 'package:dartz/dartz.dart';
 
 enum UserRole { student, teacher, administrator }
 
@@ -1117,18 +1076,6 @@ class UserRepository {
 }
 
 
-import 'package:flutter/material.dart';
-import 'package:uml/api/group_api.dart';
-import 'package:uml/api/user_api.dart';
-import 'package:uml/pages/group_add_page.dart';
-import 'package:uml/pages/login_page.dart';
-import 'package:uml/models/group.dart';
-import 'package:uml/models/user.dart';
-import 'package:uml/pages/user_edit_page.dart';
-import 'package:uml/repository/user_repository.dart';
-import 'package:uml/widgets/actions_button.dart';
-import 'package:uml/widgets/message_dialog.dart';
-import 'package:uml/widgets/user_info.dart';
 
 class StudentPage extends StatefulWidget {
   const StudentPage({Key? key}) : super(key: key);
@@ -1515,14 +1462,6 @@ class _StudentPageState extends State<StudentPage> {
 }
 
 
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:uml/pages/variant_page.dart';
-import 'package:uml/widgets/message_dialog.dart';
-import 'package:uml/widgets/actions_button.dart';
-import 'package:uml/widgets/password_field.dart';
-import 'package:uml/repository/user_repository.dart';
-import 'package:uml/pages/student_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -1667,20 +1606,6 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:uml/models/diagram.dart';
-import 'package:uml/models/relationship.dart';
-import 'package:uml/models/relationship_type.dart';
-import 'package:uml/models/uml_object.dart';
-import 'package:uml/models/uml_object_type.dart';
-import 'package:uml/pages/login_page.dart';
-import 'package:uml/utils/connections.dart';
-import 'package:uml/utils/visual_object.dart';
-import 'package:uml/widgets/message_dialog.dart';
-import 'package:uml/widgets/actions_button.dart';
-import 'package:uml/widgets/painters/relationships_painters/association_painter.dart';
-import 'package:uml/widgets/user_info.dart';
 
 class UseCasePage extends StatefulWidget {
   final Diagram diagram;
@@ -2236,15 +2161,6 @@ class Square {
 // }
 
 
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:uml/api/user_api.dart';
-import 'package:uml/widgets/message_dialog.dart';
-import 'package:uml/models/group.dart';
-import 'package:uml/models/user.dart';
-import 'package:uml/widgets/actions_button.dart';
-import 'package:uml/widgets/password_field.dart';
-import 'package:uml/widgets/value_dropdown.dart';
 
 class UserEditPage extends StatefulWidget {
   final User? user;
@@ -2473,13 +2389,6 @@ class _UserEditPageState extends State<UserEditPage> {
 }
 
 
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:uml/api/group_api.dart';
-import 'package:uml/widgets/message_dialog.dart';
-import 'package:uml/models/group.dart';
-import 'package:uml/widgets/actions_button.dart';
 
 class GroupAddPage extends StatefulWidget {
   const GroupAddPage({super.key});
@@ -2683,18 +2592,6 @@ class _GroupAddPageState extends State<GroupAddPage> {
 }
 
 
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:uml/api/diagram_api.dart';
-import 'package:uml/models/diagram.dart';
-import 'package:uml/models/diagram_type.dart';
-import 'package:uml/models/user.dart';
-import 'package:uml/pages/login_page.dart';
-import 'package:uml/repository/user_repository.dart';
-import 'package:uml/widgets/actions_button.dart';
-import 'package:uml/widgets/message_dialog.dart';
-import 'package:uml/widgets/user_info.dart';
-import 'package:uml/widgets/value_dropdown.dart';
 
 class VariantPage extends StatefulWidget {
   const VariantPage({Key? key}) : super(key: key);
@@ -2954,9 +2851,6 @@ class _VariantPageState extends State<VariantPage> {
 
 
 import 'dart:convert';
-import 'package:dio/dio.dart';
-import 'package:uml/config.dart';
-import 'package:uml/models/group.dart';
 
 final Dio dio = Dio();
 
@@ -3017,9 +2911,6 @@ class GroupApi {
 }
 
 
-import 'package:dio/dio.dart';
-import 'package:uml/config.dart';
-import 'package:uml/models/diagram.dart';
 
 final Dio dio = Dio();
 
@@ -3078,9 +2969,6 @@ class DiagramApi {
   }
 }
 
-import 'package:dio/dio.dart';
-import 'package:uml/config.dart';
-import 'package:uml/models/user.dart';
 
 final Dio dio = Dio();
 
