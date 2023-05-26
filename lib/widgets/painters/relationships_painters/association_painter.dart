@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:uml/models/relationship.dart';
+import 'package:uml/utils/visual_object.dart';
 
 class AssociationPainter extends CustomPainter {
+  final IVisualObject? object;
+  final Color color;
   final Offset? start;
   final Offset? end;
 
-  AssociationPainter({this.start, this.end});
+  AssociationPainter(
+      {this.start, this.end, this.object, this.color = Colors.black});
 
   List<Offset> edgeCenters(Rect rect) {
     return [
@@ -17,9 +22,12 @@ class AssociationPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    //var start = (object as Relationship).start;
+    //var end = (object as Relationship).end;
+
     final paint = Paint()
-      ..color = Colors.black
-      ..strokeWidth = 2.0
+      ..color = color
+      ..strokeWidth = 3.5
       ..style = PaintingStyle.stroke;
 
     int objectCount = (start != null ? 1 : 0) + (end != null ? 1 : 0);
@@ -35,7 +43,7 @@ class AssociationPainter extends CustomPainter {
       canvas.drawLine(lineStart, lineEnd, paint);
     } else if (objectCount == 1) {
       final objectRect1 = Rect.fromLTWH(start!.dx, start!.dy, 100, 100);
-              canvas.drawRect(objectRect1, paint);
+      canvas.drawRect(objectRect1, paint);
 
       var points1 = edgeCenters(objectRect1);
 
@@ -60,12 +68,14 @@ class AssociationPainter extends CustomPainter {
               : element);
 
       canvas.drawLine(line.key, line.value, paint);
+      (object as Relationship).start = line.key;
+      (object as Relationship).end = line.value;
     }
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
+  bool shouldRepaint(covariant AssociationPainter oldDelegate) {
+    return oldDelegate.start != start || oldDelegate.end != end;
   }
 }
 

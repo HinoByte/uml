@@ -5,6 +5,7 @@ import 'package:uml/models/diagram.dart';
 import 'package:uml/models/diagram_type.dart';
 import 'package:uml/models/user.dart';
 import 'package:uml/pages/login_page.dart';
+import 'package:uml/pages/use_case_page.dart';
 import 'package:uml/repository/user_repository.dart';
 import 'package:uml/widgets/actions_button.dart';
 import 'package:uml/widgets/message_dialog.dart';
@@ -32,9 +33,13 @@ class _VariantPageState extends State<VariantPage> {
 
   void _fetchDiagrams() async {
     List<Diagram> diagramsList = await DiagramApi.getDiagrams();
+    User? currentUser = UserRepository.instance.currentUser;
+    diagramsList = diagramsList
+        .where((diagram) => diagram.user?.id == currentUser?.id)
+        .toList();
     setState(() {
       diagrams = diagramsList;
-      _selectedDiagram = diagrams[0];
+      _selectedDiagram = diagrams.isNotEmpty ? diagrams[0] : null;
     });
   }
 
@@ -123,7 +128,18 @@ class _VariantPageState extends State<VariantPage> {
                       ),
                       child: TextButton(
                         onPressed: () {
-                          _showDiagramsUseCase(context);
+                          _selectedDiagram != null
+                              ? _showDiagramsUseCase(context)
+                              : showDialog(
+                                  context: context,
+                                  builder: (context) => const MessageDialog(
+                                      title: 'Уведомление',
+                                      message:
+                                          'Пожалуйста, создайте хотя бы одну диаграмму для продолжения.'),
+                                ).then((_) {
+                                  _fetchDiagrams();
+                                //  Navigator.of(context).pop();
+                                });
                         },
                         child: const Text(
                           'Просмотреть диаграммы',
@@ -252,9 +268,14 @@ class _VariantPageState extends State<VariantPage> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        // Здесь вы можете добавить код, который будет выполняться при нажатии на кнопку "Перейти"
-                        // Например, вы можете перейти к странице диаграммы
-                        // print('Going to diagram: ${_selectedDiagram?.name}');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UseCasePage(
+                              diagram: _selectedDiagram!,
+                            ),
+                          ),
+                        );
                       },
                       child: const Text('Перейти'),
                     ),

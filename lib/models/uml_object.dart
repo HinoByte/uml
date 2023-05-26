@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uml/models/diagram.dart';
 import 'package:uml/models/uml_object_type.dart';
 import 'package:uml/utils/entity.dart';
 import 'package:uml/utils/visual_object.dart';
@@ -7,7 +8,7 @@ import 'package:uml/widgets/painters/objects/precedent_painter.dart';
 
 class UmlObject extends Entity implements IVisualObject {
   final int? id;
-  final int? diagramId;
+  final Diagram? diagram;
   final String? name;
   final ObjectType? objectType;
   final double? x;
@@ -15,7 +16,7 @@ class UmlObject extends Entity implements IVisualObject {
 
   UmlObject({
     this.id,
-    this.diagramId,
+    this.diagram,
     this.name,
     this.objectType,
     this.x,
@@ -25,7 +26,9 @@ class UmlObject extends Entity implements IVisualObject {
   factory UmlObject.fromJson(Map<String, dynamic> json) {
     return UmlObject(
       id: json['id'],
-      diagramId: json['diagram_id'],
+      diagram: json['diagram_id'] == null
+          ? null
+          : Diagram.fromJson(json['diagram_id']),
       name: json['name'],
       objectType: json['object_type'] == null
           ? null
@@ -38,7 +41,7 @@ class UmlObject extends Entity implements IVisualObject {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'diagram_id': diagramId,
+      'diagram': diagram,
       'name': name,
       'object_type': objectType,
       'X': x,
@@ -48,7 +51,7 @@ class UmlObject extends Entity implements IVisualObject {
 
   @override
   String toString() {
-    return 'UmlObject{diagramId: $diagramId, name: $name, objectType: $objectType, X: $x, Y: $y}';
+    return 'UmlObject{diagramId: $diagram, name: $name, objectType: $objectType, X: $x, Y: $y}';
   }
 
   @override
@@ -65,11 +68,12 @@ class UmlObject extends Entity implements IVisualObject {
         case 'Boundary':
           return PrecedentPainter();
         default:
-          return ActorPainter(); 
+          return ActorPainter();
       }
     };
   }
 
   @override
   set customPainter(CustomPainter Function() customPainter) {}
+  
 }

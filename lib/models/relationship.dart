@@ -6,6 +6,7 @@ import 'package:uml/widgets/painters/relationships_painters/association_painter.
 import 'package:uml/widgets/painters/relationships_painters/dependency_painter.dart';
 
 class Relationship extends Connection implements IVisualObject {
+  
   final int? id;
   final int? startId;
   final int? endId;
