@@ -169,21 +169,6 @@ class Relationship extends Connection implements IVisualObject {
     };
   }
 
-  // @override
-  // bool get leftCheckboxValue => objectStart != null;
-
-  // @override
-  // bool get rightCheckboxValue => objectEnd != null;
-
-//   @override
-//   set leftCheckboxValue(bool value) {
-//     objectStart = value ? objectStart : null;
-//   }
-//   @override
-//   set rightCheckboxValue(bool value) {
-//     objectEnd = value ? objectEnd : null;
-//   }
-// }
 
   @override
   set customPainter(CustomPainter Function() customPainter) {}
@@ -201,24 +186,8 @@ class Relationship extends Connection implements IVisualObject {
     id = newId;
   }
 
-  // @override
-  // set start(Offset? start) {
-  //   super.start = start;
-  // }
 
-  // @override
-  // set end(Offset? end) {
-  //   super.end = end;
-  // }
 
-  //   @override
-  // set sssa(Size? newSize) {
-  //   dimension = newSize!.height;
-  //       print("$dimension new");
-
-  // }
-
-  @override
   String get getName => name ?? '';
   
 }

@@ -112,11 +112,9 @@ class UmlObject  implements IVisualObject {
     id = newId;
   }
 
-  @override
   Size get size =>
       dimension == null ? const Size(100,100) : Size(dimension!, dimension!);
 
-  @override
   set size(Size? newSize) {
     print(dimension);
     dimension = newSize!.height;
@@ -124,7 +122,6 @@ class UmlObject  implements IVisualObject {
 
   }
 
-  @override
   String get getName => name ?? '';
 
 
