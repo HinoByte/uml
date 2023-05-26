@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:uml/utils/base_entity.dart';
 
-class ValueDropdown<T extends BaseEntity> extends StatelessWidget {
+class ValueDropdown<T> extends StatelessWidget {
   final List<T> items;
   final T selectedItem;
   final ValueChanged<T?> onChanged;
@@ -45,7 +44,7 @@ class ValueDropdown<T extends BaseEntity> extends StatelessWidget {
               style: GoogleFonts.lobster(fontSize: 18),
             ),
             value: selectedItem,
-            items: items.map<DropdownMenuItem<T>>((T item) {
+            items: items.map<DropdownMenuItem<T>>((dynamic item) {
               return DropdownMenuItem<T>(
                 value: item,
                 child: Text(

@@ -5,10 +5,10 @@ import 'package:uml/models/relationship.dart';
 import 'package:uml/utils/visual_object.dart';
 import 'package:uml/widgets/painters/relationships_painters/line_painter.dart';
 
-class DependencyPainter extends LinePainter {
+class GeneralizationPainter extends LinePainter {
   final String text;
 
-  DependencyPainter(
+  GeneralizationPainter(
       {required Offset start,
       required Offset end,
       required Size sizeStart,
@@ -24,15 +24,14 @@ class DependencyPainter extends LinePainter {
 
   @override
   void drawLineAndText(Canvas canvas, Offset start, Offset end) {
-    final paint = Paint()
+      final paint = Paint()
       ..color = const Color(0xFF000000)
       ..strokeWidth = 2.5
       ..style = PaintingStyle.stroke;
 
     const arrowLength = 20.0;
-    const arrowAngle = pi / 6; // Угол между сторонами стрелки (30 градусов)
+    const arrowAngle = pi / 6; 
 
-    // final arrowTip = end;
     final arrowBase1 = Offset(
       end.dx - arrowLength * cos(angle - arrowAngle),
       end.dy - arrowLength * sin(angle - arrowAngle),
@@ -42,26 +41,20 @@ class DependencyPainter extends LinePainter {
       end.dy - arrowLength * sin(angle + arrowAngle),
     );
 
-    double lineLength =
-        sqrt(pow(end.dx - start.dx, 2) + pow(end.dy - start.dy, 2));
-    double dashLength = 10.0;
-    for (double i = 0; i < lineLength; i += dashLength * 2) {
-      double startX = start.dx + i * cos(angle);
-      double startY = start.dy + i * sin(angle);
-
-      double endX = start.dx + (i + dashLength) * cos(angle);
-      double endY = start.dy + (i + dashLength) * sin(angle);
-
-      canvas.drawLine(Offset(startX, startY), Offset(endX, endY), paint);
-    }
+    final lineEnd = Offset(
+      end.dx - arrowLength * cos(angle),
+      end.dy - arrowLength * sin(angle),
+    );
+    canvas.drawLine(start, lineEnd, paint);
 
     final arrowPath = Path()
       ..moveTo(end.dx, end.dy)
       ..lineTo(arrowBase1.dx, arrowBase1.dy)
-      ..moveTo(end.dx, end.dy)
-      ..lineTo(arrowBase2.dx, arrowBase2.dy);
+      ..lineTo(arrowBase2.dx, arrowBase2.dy)
+      ..close();
 
     canvas.drawPath(arrowPath, paint);
+
     final paragraphStyle = ParagraphStyle(
       textAlign: TextAlign.center,
       maxLines: 1,
@@ -69,8 +62,12 @@ class DependencyPainter extends LinePainter {
     canvas.drawPath(arrowPath, paint);
 
     final paragraphBuilder = ParagraphBuilder(paragraphStyle)
-      ..pushStyle(TextStyle(color: const Color(0xFF000000), fontSize: 16.0))
+      ..pushStyle(TextStyle(
+          color: const Color(0xFF000000),
+          fontSize: 16.0)) 
       ..addText(text);
+    double lineLength = sqrt((end.dx - start.dx) * (end.dx - start.dx) +
+        (end.dy - start.dy) * (end.dy - start.dy));
 
     final paragraph = paragraphBuilder.build()
       ..layout(ParagraphConstraints(width: lineLength));

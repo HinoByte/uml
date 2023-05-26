@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Connection {
+abstract class Connection {
   bool leftCheckboxValue;
   bool rightCheckboxValue;
   bool hasConnectedDiagrams;
@@ -14,6 +14,7 @@ class Connection {
     this.start,
     this.end,
   });
+  
 
   bool get isArrowConnected => leftCheckboxValue && rightCheckboxValue;
 }

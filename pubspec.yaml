@@ -72,6 +72,7 @@ flutter:
     - assets/subject.jpg
     - assets/lock.jpg
     - assets/unlock.jpg
+    - assets/connection/association.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

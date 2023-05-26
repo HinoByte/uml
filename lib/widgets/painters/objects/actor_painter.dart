@@ -1,6 +1,13 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 
 class ActorPainter extends CustomPainter {
+  final String text;
+// новая переменная для задания "высоты" линии
+
+  ActorPainter({required this.text});
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
@@ -11,7 +18,8 @@ class ActorPainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
 
     // Рисуем голову
-    canvas.drawCircle(Offset(center.dx, center.dy - size.height / 4), size.width / 4, paint);
+    canvas.drawCircle(
+        Offset(center.dx, center.dy - size.height / 4), size.width / 4, paint);
 
     // Рисуем туловище
     canvas.drawLine(
@@ -43,6 +51,20 @@ class ActorPainter extends CustomPainter {
       Offset(center.dx + size.width / 4, center.dy + size.height / 2),
       paint,
     );
+
+    // Add the text label below the actor
+    final paragraphStyle = ui.ParagraphStyle(textAlign: TextAlign.center);
+    final paragraphBuilder = ui.ParagraphBuilder(paragraphStyle)
+      ..pushStyle(ui.TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 17))
+      ..addText(text);
+
+    // final constraints = BoxConstraints.tightFor(width: size.width);
+    final paragraphConstraints = ui.ParagraphConstraints(width: size.width);
+    final paragraph = paragraphBuilder.build()..layout(paragraphConstraints);
+
+    final offset = Offset((size.width - paragraph.width) / 2, size.height);
+
+    canvas.drawParagraph(paragraph, offset);
   }
 
   @override

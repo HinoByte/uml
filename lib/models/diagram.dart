@@ -1,8 +1,7 @@
 import 'package:uml/models/diagram_type.dart';
 import 'package:uml/models/user.dart';
-import 'package:uml/utils/base_entity.dart';
 
-class Diagram extends BaseEntity{
+class Diagram {
   final int? id;
   final User? user;
   final DiagramType? diagramType;
@@ -45,7 +44,7 @@ class Diagram extends BaseEntity{
     };
   }
   
- @override
+
   String get getName => name ?? '';
 
   @override

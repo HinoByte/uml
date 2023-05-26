@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:uml/config.dart';
 import 'package:uml/pages/variant_page.dart';
 import 'package:uml/widgets/message_dialog.dart';
 import 'package:uml/widgets/actions_button.dart';
@@ -80,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                           icon: const Padding(
                             padding: EdgeInsets.only(left: 15.0),
                             child: Icon(
-                              Icons.alternate_email,
+                              Icons.person_outline,
                               color: Color(0xfff8f8f8),
                             ),
                           ),
@@ -115,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                         context: context,
                         builder: (context) => MessageDialog(
                             title: 'Ошибка аутентификации',
-                            message: error.message),
+                            message: '${AppConfig.apiUrl} ${error.message}'),
                       );
                     },
                     (user) {

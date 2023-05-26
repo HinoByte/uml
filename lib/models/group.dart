@@ -1,6 +1,5 @@
-import 'package:uml/utils/base_entity.dart';
 
-class Group extends BaseEntity {
+class Group  {
   final int? id;
   final String? name;
   final String? kafedra;
@@ -26,7 +25,7 @@ class Group extends BaseEntity {
     };
   }
 
-  @override
+  
   String get getName => name ?? kafedra ?? '';
 
   @override
